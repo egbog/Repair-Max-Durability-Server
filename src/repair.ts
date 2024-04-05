@@ -26,6 +26,18 @@ export class Repair
 
         itemToRepair.upd.Repairable = { Durability: itemCurrentDurability, MaxDurability: newCurrentMaxDurability };
 
+        // check if repair kit was crafted
+        // for some reason crafted kits don't contain a "RepairKit" component in upd
+        // so just workaround add it ourselves
+        if (repairKit.upd.SpawnedInSession == true || repairKit.upd.RepairKit == null) {
+            repairKit.upd.SpawnedInSession = false;
+            repairKit.upd.RepairKit = {
+                "Resource": 5
+            };
+        }
+
+        repairKit.hasOwnProperty("RepairKit");
+
         repairKit.upd.RepairKit.Resource--;
 
         if (repairKit.upd.RepairKit.Resource <= 0)

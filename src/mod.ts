@@ -14,6 +14,7 @@ import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
 
 import { Repair } from "./repair";
 import { Assort } from "./assort";
+import { CraftInjector } from "./craft";
 
 import * as path from "path";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
@@ -90,9 +91,19 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
 
         CustomItem.createItemFromClone(MaxRepairKit);
 
+        // trader assort
         const assortInstance = new Assort(logger, tables, hashUtil);
+        const assortCount = assortInstance.addToAssort("mechanic", "86afd148ac929e6eddc5e370");
+        if (assortCount.count > 0) {
+            logger.debug(`[MaxDura]: Added ${assortCount.item} trade to ${assortCount.trader} assort`);
+        }
 
-        assortInstance.addToAssort("5a7c2eca46aef81a7ca2145d", "86afd148ac929e6eddc5e370");
+        // hideout crafts
+        const craftInstance = new CraftInjector(db, hashUtil);
+        const injectedCount = craftInstance.injectCraft();
+        if (injectedCount > 0) {
+            logger.debug(`[MaxDura]: (${injectedCount}) crafts injected into database`);
+        }
     }
 
     public postAkiLoad(container: DependencyContainer): void 

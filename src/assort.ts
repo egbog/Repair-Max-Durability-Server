@@ -13,9 +13,21 @@ export class Assort
 {
     constructor(private logger: ILogger, private tables: IDatabaseTables, private hashUtil: HashUtil) {}
 
-    public addToAssort(trader: string, itemId: string) 
+    public addToAssort(trader: string, itemId: string)
     {
-        let assort = this.tables.traders[trader].assort;
+        let traderId;
+        let count = 0;
+
+        switch (trader)
+        {
+        case "mechanic":
+            {
+                traderId = "5a7c2eca46aef81a7ca2145d";
+                break;
+            }
+        }
+
+        let assort = this.tables.traders[traderId].assort;
         let assortId = this.hashUtil.generate();
 
         let item = this.tables.templates.handbook.Items.find(i => i.Id === itemId);
@@ -52,5 +64,15 @@ export class Assort
             ];
 
         assort.loyal_level_items[assortId] = loyalLvl;
+
+        count++;
+
+        let ret = {
+            "count" : count,
+            "trader" : trader,
+            "item" : this.tables.templates.items[itemId]._props.Name
+        };
+
+        return ret;
     }
 }
