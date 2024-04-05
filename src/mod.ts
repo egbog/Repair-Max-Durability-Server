@@ -13,7 +13,7 @@ import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
 import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
 
 import { Repair } from "./repair";
-import { Assort } from "./assort";
+import { AssortInjector } from "./assort";
 import { CraftInjector } from "./craft";
 
 import * as path from "path";
@@ -92,7 +92,7 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
         CustomItem.createItemFromClone(MaxRepairKit);
 
         // trader assort
-        const assortInstance = new Assort(logger, tables);
+        const assortInstance = new AssortInjector(logger, tables);
         const assortCount = assortInstance.addToAssort("mechanic", "86afd148ac929e6eddc5e370");
         if (assortCount.count > 0) {
             logger.debug(`[MaxDura]: Added ${assortCount.item} trade to ${assortCount.trader} assort`);
