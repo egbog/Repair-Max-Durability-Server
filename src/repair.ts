@@ -7,8 +7,7 @@ import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 
 export class Repair
 {
-    constructor(private logger: ILogger, private db: DatabaseServer, private jsonUtil: JsonUtil, private eventOutputHolder: EventOutputHolder, 
-                private profileHelper: ProfileHelper, private pmcData: IPmcData, private info: any, private sessionId: string){}
+    constructor(private logger: ILogger, private jsonUtil: JsonUtil, private pmcData: IPmcData, private info: any){}
 
     public ambeeb()
     {

@@ -37,13 +37,11 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
                     url: "/MaxDura/CheckDragged",
                     action: (url, info, sessionId, output) => {
                         const logger = container.resolve<ILogger>("WinstonLogger");
-                        const db = container.resolve<DatabaseServer>("DatabaseServer");
                         const jsonUtil = container.resolve<JsonUtil>("JsonUtil");
                         const profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
                         const pmcData = profileHelper.getPmcProfile(sessionId);
-                        const eventOutputHolder = container.resolve<EventOutputHolder>("EventOutputHolder");
 
-                        const repairInstance = new Repair(logger, db, jsonUtil, eventOutputHolder, profileHelper, pmcData, info, sessionId);
+                        const repairInstance = new Repair(logger, jsonUtil, pmcData, info);
 
                         return jsonUtil.serialize(repairInstance.ambeeb());
                     }
