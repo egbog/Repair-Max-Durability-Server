@@ -35,8 +35,6 @@ export class Repair
             };
         }
 
-        repairKit.hasOwnProperty("RepairKit");
-
         repairKit.upd.RepairKit.Resource--;
 
         if (repairKit.upd.RepairKit.Resource <= 0)
