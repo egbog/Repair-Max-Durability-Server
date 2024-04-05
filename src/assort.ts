@@ -28,7 +28,7 @@ export class Assort
         }
 
         let assort = this.tables.traders[traderId].assort;
-        let assortId = this.hashUtil.generate();
+        let assortId = "db6e9955c9672e4fdd7e38ad";
 
         let item = this.tables.templates.handbook.Items.find(i => i.Id === itemId);
         let price = item.Price * 1.3;
