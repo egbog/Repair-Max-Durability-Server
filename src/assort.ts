@@ -1,7 +1,7 @@
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
 
-export class Assort
+export class AssortInjector
 {
     constructor(private logger: ILogger, private tables: IDatabaseTables) {}
 
