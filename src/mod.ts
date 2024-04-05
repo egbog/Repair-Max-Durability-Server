@@ -92,14 +92,14 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
         CustomItem.createItemFromClone(MaxRepairKit);
 
         // trader assort
-        const assortInstance = new Assort(logger, tables, hashUtil);
+        const assortInstance = new Assort(logger, tables);
         const assortCount = assortInstance.addToAssort("mechanic", "86afd148ac929e6eddc5e370");
         if (assortCount.count > 0) {
             logger.debug(`[MaxDura]: Added ${assortCount.item} trade to ${assortCount.trader} assort`);
         }
 
         // hideout crafts
-        const craftInstance = new CraftInjector(db, hashUtil);
+        const craftInstance = new CraftInjector(logger, db);
         const injectedCount = craftInstance.injectCraft();
         if (injectedCount > 0) {
             logger.debug(`[MaxDura]: (${injectedCount}) crafts injected into database`);

@@ -1,17 +1,9 @@
-import { DatabaseServer} from "@spt-aki/servers/DatabaseServer";
-import { ITraderConfig } from "@spt-aki/models/spt/config/ITraderConfig";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
-import { ITraderAssort } from "@spt-aki/models/eft/common/tables/ITrader";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
 
 export class Assort
 {
-    constructor(private logger: ILogger, private tables: IDatabaseTables, private hashUtil: HashUtil) {}
+    constructor(private logger: ILogger, private tables: IDatabaseTables) {}
 
     public addToAssort(trader: string, itemId: string)
     {

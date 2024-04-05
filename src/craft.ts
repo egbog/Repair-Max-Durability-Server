@@ -1,12 +1,10 @@
 import { DatabaseServer} from "@spt-aki/servers/DatabaseServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { IHideoutProduction, Requirement } from "@spt-aki/models/eft/hideout/IHideoutProduction";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
 
 export class CraftInjector
 {
-    constructor(private db: DatabaseServer, private hashUtil: HashUtil) {}
+    constructor(private logger: ILogger, private db: DatabaseServer) {}
 
     createCraft = (itemId, requirements, productionTime) : IHideoutProduction => {
         return {
