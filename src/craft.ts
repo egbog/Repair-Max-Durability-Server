@@ -47,7 +47,7 @@ export class CraftInjector
 
         const productionId = "86afd148ac929e6eddc5e370";
 
-        const productionItem = this.createCraft("86afd148ac929e6eddc5e370", reqs, 1);
+        const productionItem = this.createCraft("86afd148ac929e6eddc5e370", reqs, 1200);
 
         tables.hideout.production.push(productionItem);
         return ++count;
