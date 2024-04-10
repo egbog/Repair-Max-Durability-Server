@@ -11,19 +11,28 @@ export class Repair
 
     public ambeeb()
     {
-        const id = this.info.id;
+        // get values from our client
+        const id = this.info.itemId;
         const kitId = this.info.repairKitId;
+
+        // lookup
         const itemToRepair = this.pmcData.Inventory.items.find((x: { _id: string; }) => x._id === id);
         const repairKit = this.pmcData.Inventory.items.find((x: { _id: string; }) => x._id === kitId);
 
-        const itemMaxDurability = 100;
-        const itemCurrentDurability = this.jsonUtil.clone(itemToRepair.upd.Repairable.Durability);
+        const itemDurability = 100;
+        const itemMaxDurability = itemDurability;
         const itemCurrentMaxDurability = this.jsonUtil.clone(itemToRepair.upd.Repairable.MaxDurability);
 
+        // set new values
         const amountToRepair = itemMaxDurability - itemCurrentMaxDurability;
         const newCurrentMaxDurability = itemCurrentMaxDurability + amountToRepair;
+        const newCurrentDurability = newCurrentMaxDurability;
 
-        itemToRepair.upd.Repairable = { Durability: itemCurrentDurability, MaxDurability: newCurrentMaxDurability };
+        // update our item
+        itemToRepair.upd.Repairable = { 
+            Durability: newCurrentDurability, 
+            MaxDurability: newCurrentMaxDurability 
+        };
 
         // check if repair kit was crafted
         // for some reason crafted kits don't contain a "RepairKit" component in upd
