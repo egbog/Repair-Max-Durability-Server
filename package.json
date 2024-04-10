@@ -13,7 +13,8 @@
 	"scripts": {
 		"setup": "npm i",
 		"build": "node ./build.mjs",
-		"buildinfo": "node ./build.mjs --verbose"
+		"buildinfo": "node ./build.mjs --verbose",
+		"release-build": "release-package.bat"
 	},
 	"devDependencies": {
 		"@types/node": "20.11",

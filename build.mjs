@@ -101,7 +101,7 @@ async function main() {
         logger.log("success", `Project name created: ${projectName}`);
 
         // Remove the old distribution directory and create a fresh one.
-        const distDir = await removeOldDistDirectory(currentDir);
+        const distDir = await removeOldDistDirectory(currentDir, projectName);
         logger.log("info", "Distribution directory successfully cleaned.");
 
         // Create a temporary working directory to perform the build operations.
@@ -115,17 +115,17 @@ async function main() {
         logger.log("success", "Files successfully copied to temporary directory.");
 
         // Create a zip archive of the project files.
-        logger.log("info", "Beginning folder compression...");
+        /*logger.log("info", "Beginning folder compression...");
         const zipFilePath = path.join(path.dirname(projectDir), `${projectName}.zip`);
         await createZipFile(projectDir, zipFilePath, "user/mods/" + projectName);
         logger.log("success", "Archive successfully created.");
-        logger.log("info", zipFilePath);
+        logger.log("info", zipFilePath);/*
 
         // Move the zip file inside of the project directory, within the temporary working directory.
-        const zipFileInProjectDir = path.join(projectDir, `${projectName}.zip`);
+        /*const zipFileInProjectDir = path.join(projectDir, `${projectName}.zip`);
         await fs.move(zipFilePath, zipFileInProjectDir);
         logger.log("success", "Archive successfully moved.");
-        logger.log("info", zipFileInProjectDir);
+        logger.log("info", zipFileInProjectDir);*/
 
         // Move the temporary directory into the distribution directory.
         await fs.move(projectDir, distDir);
@@ -228,7 +228,7 @@ function createProjectName(packageJson) {
     const version = packageJson.version;
 
     // Ensure the name is lowercase, as per the package.json specification.
-    return `${author}-${name}-${version}`.toLowerCase();
+    return `${author}-${name}`;
 }
 
 /**
@@ -238,8 +238,8 @@ function createProjectName(packageJson) {
  * @param {string} currentDirectory - The absolute path of the current working directory.
  * @returns {Promise<string>} A promise that resolves to the absolute path to the distribution directory.
  */
-async function removeOldDistDirectory(projectDir) {
-    const distPath = path.join(projectDir, "dist");
+async function removeOldDistDirectory(projectDir, projectName) {
+    const distPath = path.join(projectDir, "dist/user/mods/" + projectName);
     await fs.remove(distPath);
     return distPath;
 }
