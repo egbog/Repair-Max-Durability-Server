@@ -75,8 +75,8 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
             },
             parentId: "616eb7aea207f41933308f46",
             newId: "86afd148ac929e6eddc5e370",
-            fleaPriceRoubles: 67500,
-            handbookPriceRoubles: 67500,
+            fleaPriceRoubles: 110000,
+            handbookPriceRoubles: 110000,
             handbookParentId: "5b47574386f77428ca22b345",
             locales: {
                 "en": {

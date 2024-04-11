@@ -23,7 +23,7 @@ export class AssortInjector
         let assortId = "db6e9955c9672e4fdd7e38ad";
 
         let item = this.tables.templates.handbook.Items.find(i => i.Id === itemId);
-        let price = item.Price * 1.75;
+        let price = item.Price * 1.1;
         let currency = "5449016a4bdc2d6f028b456f";
 
         let loyalLvl = 2;
