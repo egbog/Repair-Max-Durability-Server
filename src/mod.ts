@@ -62,8 +62,8 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
         const MaxRepairKit: NewItemFromCloneDetails = {
             itemTplToClone: "5910968f86f77425cf569c32", //5910968f86f77425cf569c32 weaprepairkit
             overrideProperties: {
-                "Name": "Spare Firearm Parts",
-                "ShortName": "Spare Firearm Parts",
+                "Name": "Spare firearm parts",
+                "ShortName": "Spare firearm parts",
                 "Description": "Spare parts such as bolt carrier groups, firing pins and other common wear items. Enough to make approximately 5 repairs.",
                 "Weight": 1,
                 "MaxRepairResource": 5,
@@ -80,9 +80,9 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
             handbookParentId: "5b47574386f77428ca22b345",
             locales: {
                 "en": {
-                    name: "Spare Firearm Parts",
-                    shortName: "Spare Firearm Parts",
-                    description: "Spare parts such as bolt carrier groups, firing pins and other common wear items. Enough to make approximately 5 repairs."
+                    name: "Spare firearm parts",
+                    shortName: "Spare firearm parts",
+                    description: "Spare parts such as bolt carrier groups, firing pins and other common wear items. Enough to make about 5 repairs."
                 }
             }
         }
