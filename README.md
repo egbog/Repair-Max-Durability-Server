@@ -16,5 +16,5 @@ Drag the Spare Firearm Parts onto your weapon. You should see a notification pop
 ## Known Issues
 Spare Firearm Parts are visible is the Repair window, letting you repair a gun for just the 5 resource points it contains. This will act like a regular repair kit and will waste your Parts.
 
-## Compatiblity
+## Compatibility 
 Compatible with SPT-AKI 3.8.0
