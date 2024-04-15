@@ -1,0 +1,27 @@
+{
+    "Price": 110000,
+    "MaxRepairResource": 5,
+    "CraftTime": 1200,
+    "Traders": {
+            "_info": "name is case sensitive ie. Prapor, Peacekeeper, etc.",
+            "name": "Prapor",
+            "loyaltyLevel": 1
+        },
+    "Requirements": [
+        {
+            "type": "Tool",
+            "templateId": "544fb5454bdc2df8738b456a"
+        },
+        {
+            "type": "Item",
+            "templateId": "5d1c819a86f774771b0acd6c",
+            "isFunctional": false,
+            "count": 1
+        },
+        {
+            "type": "Area",
+            "areaType": 10,
+            "requiredLevel": 1
+        }
+    ]
+}

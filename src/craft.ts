@@ -1,12 +1,14 @@
 import { DatabaseServer} from "@spt-aki/servers/DatabaseServer";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { IHideoutProduction, Requirement } from "@spt-aki/models/eft/hideout/IHideoutProduction";
+import { CraftTime, Requirements } from "../config/config.json";
 
 export class CraftInjector
 {
     constructor(private logger: ILogger, private db: DatabaseServer) {}
 
-    createCraft = (itemId, requirements, productionTime) : IHideoutProduction => {
+    private createCraft(itemId: string, requirements: Requirement[], productionTime: number): IHideoutProduction
+    {
         return {
             _id: `${itemId}_craft`,
             areaType: 10, //workbench
@@ -20,36 +22,21 @@ export class CraftInjector
             locked: false,
             needFuelForAllProductionTime: false,
         };
-    };
+    }
 
     public injectCraft()
     {
         let count = 0;
         const tables = this.db.getTables();
 
-        let reqs : Requirement[] = [
-            {
-                "type": "Tool",
-                "templateId": "544fb5454bdc2df8738b456a" // leatherman
-            },
-            {
-                "type": "Item",
-                "templateId": "5d1c819a86f774771b0acd6c", // weapon parts
-                "isFunctional": false,
-                "count": 1
-            },
-            {
-                "type": "Area",
-                "areaType": 10, // workbench
-                "requiredLevel": 1
-            }
-        ];
+        let reqs: Requirement[] = [];
+        for (let a of Requirements)
+            reqs.push(a);
 
-        const productionId = "86afd148ac929e6eddc5e370";
-
-        const productionItem = this.createCraft("86afd148ac929e6eddc5e370", reqs, 1200);
-
+        const itemId = "86afd148ac929e6eddc5e370";
+        const productionItem = this.createCraft(itemId, reqs, CraftTime);
         tables.hideout.production.push(productionItem);
+
         return ++count;
     }
 }
