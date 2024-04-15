@@ -1,11 +1,11 @@
 {
-    "Price": 110000,
+    "Price": 100000,
     "MaxRepairResource": 5,
     "CraftTime": 1200,
     "Traders": {
             "_info": "name is case sensitive ie. Prapor, Peacekeeper, etc.",
-            "name": "Prapor",
-            "loyaltyLevel": 1
+            "name": "Mechanic",
+            "loyaltyLevel": 2
         },
     "Requirements": [
         {
