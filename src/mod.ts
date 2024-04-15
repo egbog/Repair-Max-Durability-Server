@@ -13,7 +13,7 @@ import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
 
 import { Repair } from "./repair";
 import { AssortInjector } from "./assort";
-import { CraftInjector } from "./CraftInjector";
+import { CraftInjector } from "./craft";
 import { Price, MaxRepairResource } from "../config/config.json";
 
 import * as path from "path";
