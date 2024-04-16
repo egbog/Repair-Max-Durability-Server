@@ -3,7 +3,7 @@
         "allowJs": true,
         "module": "CommonJS",
         "target": "ES2022",
-        "moduleResolution": "Node",
+        "moduleResolution": "Node10",
         "esModuleInterop": true,
         "downlevelIteration": true,
         "experimentalDecorators": true,
