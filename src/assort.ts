@@ -1,32 +1,26 @@
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
+import { MaxRepairResource, Traders } from "../config/config.json";
 
 export class AssortInjector
 {
     constructor(private logger: ILogger, private tables: IDatabaseTables) {}
 
-    public addToAssort(trader: string, itemId: string)
+    public addToAssort(itemId: string)
     {
         let traderId;
         let count = 0;
 
-        switch (trader)
-        {
-        case "mechanic":
-            {
-                traderId = "5a7c2eca46aef81a7ca2145d";
-                break;
-            }
-        }
+        // get our traderids
+        for (let id in this.tables.traders)
+            traderId = this.tables.traders[id].base.nickname === Traders.name ? id : traderId;
 
-        let assort = this.tables.traders[traderId].assort;
-        let assortId = "db6e9955c9672e4fdd7e38ad";
+        const assort = this.tables.traders[traderId].assort;
+        const assortId = "db6e9955c9672e4fdd7e38ad";
 
-        let item = this.tables.templates.handbook.Items.find(i => i.Id === itemId);
-        let price = item.Price * 1.1;
-        let currency = "5449016a4bdc2d6f028b456f";
-
-        let loyalLvl = 2;
+        const item = this.tables.templates.handbook.Items.find(i => i.Id === itemId);
+        const price = item.Price;
+        const currency = "5449016a4bdc2d6f028b456f";
 
         assort.items.push(
             {
@@ -39,7 +33,7 @@ export class AssortInjector
                     "BuyRestrictionCurrent": 0,
                     "StackObjectsCount": 5,
                     "RepairKit": {
-                        "Resource": 5
+                        "Resource": MaxRepairResource
                     }
                 }
             }
@@ -55,16 +49,14 @@ export class AssortInjector
                 ]
             ];
 
-        assort.loyal_level_items[assortId] = loyalLvl;
+        assort.loyal_level_items[assortId] = Traders.loyaltyLevel;
 
         count++;
 
-        let ret = {
-            "count" : count,
-            "trader" : trader,
-            "item" : this.tables.templates.items[itemId]._props.Name
+        return {
+            "count": count,
+            "trader": Traders.name,
+            "item": this.tables.templates.items[itemId]._props.Name
         };
-
-        return ret;
     }
 }

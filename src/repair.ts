@@ -1,9 +1,7 @@
-import { DatabaseServer} from "@spt-aki/servers/DatabaseServer";
 import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
+import { MaxRepairResource } from "../config/config.json";
 
 export class Repair
 {
@@ -39,7 +37,7 @@ export class Repair
         // so just workaround add it ourselves
         if (repairKit.upd.SpawnedInSession == true && repairKit.upd.RepairKit == null) {
             repairKit.upd.RepairKit = {
-                "Resource": 5
+                "Resource": MaxRepairResource
             };
         }
 

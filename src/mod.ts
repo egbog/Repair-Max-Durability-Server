@@ -10,11 +10,11 @@ import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { PreAkiModLoader } from "@spt-aki/loaders/PreAkiModLoader";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
 
 import { Repair } from "./repair";
 import { AssortInjector } from "./assort";
 import { CraftInjector } from "./craft";
+import { Price, MaxRepairResource } from "../config/config.json";
 
 import * as path from "path";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
@@ -66,7 +66,7 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
                 "ShortName": "Spare firearm parts",
                 "Description": "Spare parts such as bolt carrier groups, firing pins and other common wear items. Enough to make approximately 5 repairs.",
                 "Weight": 1,
-                "MaxRepairResource": 5,
+                "MaxRepairResource": MaxRepairResource,
                 "Height": 2,
                 "Width": 2,
                 "TargetItemFilter": [
@@ -75,8 +75,8 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
             },
             parentId: "616eb7aea207f41933308f46",
             newId: "86afd148ac929e6eddc5e370",
-            fleaPriceRoubles: 110000,
-            handbookPriceRoubles: 110000,
+            fleaPriceRoubles: Price,
+            handbookPriceRoubles: Price,
             handbookParentId: "5b47574386f77428ca22b345",
             locales: {
                 "en": {
@@ -91,7 +91,7 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
 
         // trader assort
         const assortInstance = new AssortInjector(logger, tables);
-        const assortCount = assortInstance.addToAssort("mechanic", "86afd148ac929e6eddc5e370");
+        const assortCount = assortInstance.addToAssort("86afd148ac929e6eddc5e370");
         if (assortCount.count > 0) {
             logger.debug(`[MaxDura]: Added ${assortCount.item} trade to ${assortCount.trader} assort`);
         }
