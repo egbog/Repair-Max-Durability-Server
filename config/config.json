@@ -2,13 +2,24 @@
     "Price": 100000,
     "MaxRepairResource": 5,
     "CraftTime": 1200,
-    "Traders": {
+    "Traders": [
+        {
             "_info": "name is case sensitive ie. Prapor, Peacekeeper, etc.",
+            "enabled": true,
             "name": "Mechanic",
             "loyaltyLevel": 2,
             "buyLimit": 5,
             "stock": 5
         },
+        {
+            "_info": "example - it is possible to have multiple traders, just set 'enabled' to true",
+            "enabled": false,
+            "name": "Prapor",
+            "loyaltyLevel": 1,
+            "buyLimit": 50,
+            "stock": 2000
+        }
+    ],
     "Requirements": [
         {
             "type": "Tool",

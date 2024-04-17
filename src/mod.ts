@@ -14,7 +14,7 @@ import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
 import { Repair } from "./repair";
 import { AssortInjector } from "./assort";
 import { CraftInjector } from "./craft";
-import { Price, MaxRepairResource } from "../config/config.json";
+import { Price, MaxRepairResource, Traders } from "../config/config.json";
 
 import * as path from "path";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
@@ -91,17 +91,16 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
 
         // trader assort
         const assortInstance = new AssortInjector(logger, tables);
-        const assortCount = assortInstance.addToAssort("86afd148ac929e6eddc5e370");
-        if (assortCount.count > 0) {
-            logger.debug(`[MaxDura]: Added ${assortCount.item} trade to ${assortCount.trader} assort`);
-        }
+        const assortResult = assortInstance.addToAssort(Traders);
+        if (assortResult.count > 0)
+            for (let i of assortResult.traders)
+                logger.debug(`[MaxDura]: Added trade to ${i.name}`);
 
         // hideout crafts
         const craftInstance = new CraftInjector(logger, db);
         const injectedCount = craftInstance.injectCraft();
-        if (injectedCount > 0) {
+        if (injectedCount > 0)
             logger.debug(`[MaxDura]: (${injectedCount}) crafts injected into database`);
-        }
     }
 
     public postAkiLoad(container: DependencyContainer): void 

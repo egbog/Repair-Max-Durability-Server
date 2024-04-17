@@ -6,57 +6,78 @@ export class AssortInjector
 {
     constructor(private logger: ILogger, private tables: IDatabaseTables) {}
 
-    public addToAssort(itemId: string)
+    private id = {
+        // our item id
+        "itemId": "86afd148ac929e6eddc5e370",
+        // pre generated id for assort
+        "assortId": "db6e9955c9672e4fdd7e38ad",
+        // hardcoded trader ids
+        "traderIds": {
+            Prapor: "54cb50c76803fa8b248b4571",
+            Therapist: "54cb57776803fa99248b456e",
+            Skier: "58330581ace78e27b8b10cee",
+            Peacekeeper: "5935c25fb3acc3127c3d8cd9",
+            Mechanic: "5a7c2eca46aef81a7ca2145d",
+            Ragman: "5ac3b934156ae10c4430e83c",
+            Jaeger: "5c0647fdd443bc2504c2d371"
+        }
+    };
+
+    public addToAssort(traderInfo: typeof Traders)
     {
-        let traderId;
         let count = 0;
+        let addedTraders = [];
 
-        // get our traderids
-        for (let id in this.tables.traders)
-            traderId = this.tables.traders[id].base.nickname === Traders.name ? id : traderId;
-
-        const assort = this.tables.traders[traderId].assort;
-        const assortId = "db6e9955c9672e4fdd7e38ad";
-
-        const item = this.tables.templates.handbook.Items.find(i => i.Id === itemId);
+        const item = this.tables.templates.handbook.Items.find(i => i.Id === this.id.itemId);
         const price = item.Price;
-        const currency = "5449016a4bdc2d6f028b456f";
+        const currency = "5449016a4bdc2d6f028b456f"; //rub
 
-        assort.items.push(
+        for (let t of traderInfo)
+        {
+            if (t.enabled)
             {
-                "_id": assortId,
-                "_tpl": itemId,
-                "parentId": "hideout",
-                "slotId": "hideout",
-                "upd": {
-                    "BuyRestrictionMax": Traders.buyLimit,
-                    "BuyRestrictionCurrent": 0,
-                    "StackObjectsCount": Traders.stock,
-                    "RepairKit": {
-                        "Resource": MaxRepairResource
-                    }
-                }
-            }
-        );
+                const assort = this.tables.traders[this.id.traderIds[t.name]].assort;
+                const assortId = this.id.assortId;
+                const traderId = this.id.traderIds[t.name];
 
-        assort.barter_scheme[assortId] =
-            [
-                [
+                assort.items.push(
                     {
-                        "count": price,
-                        "_tpl": currency
+                        "_id": assortId,
+                        "_tpl": item.Id,
+                        "parentId": "hideout",
+                        "slotId": "hideout",
+                        "upd": {
+                            "BuyRestrictionMax": t.buyLimit,
+                            "BuyRestrictionCurrent": 0,
+                            "StackObjectsCount": t.stock,
+                            "RepairKit": {
+                                "Resource": MaxRepairResource
+                            }
+                        }
                     }
-                ]
-            ];
+                );
 
-        assort.loyal_level_items[assortId] = Traders.loyaltyLevel;
+                assort.barter_scheme[assortId] =
+                [
+                    [
+                        {
+                            "count": price,
+                            "_tpl": currency
+                        }
+                    ]
+                ];
 
-        count++;
+                assort.loyal_level_items[assortId] = t.loyaltyLevel;
+
+                addedTraders.push(t);
+
+                count++;
+            }
+        }
 
         return {
             "count": count,
-            "trader": Traders.name,
-            "item": this.tables.templates.items[itemId]._props.Name
+            "traders": addedTraders
         };
     }
 }
