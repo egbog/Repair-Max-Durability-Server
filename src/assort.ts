@@ -36,9 +36,9 @@ export class AssortInjector
         {
             if (t.enabled)
             {
-                const assort = this.tables.traders[this.id.traderIds[t.name]].assort;
-                const assortId = this.id.assortId;
                 const traderId = this.id.traderIds[t.name];
+                const assort = this.tables.traders[traderId].assort;
+                const assortId = this.id.assortId;
 
                 assort.items.push(
                     {
