@@ -5,7 +5,9 @@
     "Traders": {
             "_info": "name is case sensitive ie. Prapor, Peacekeeper, etc.",
             "name": "Mechanic",
-            "loyaltyLevel": 2
+            "loyaltyLevel": 2,
+            "buyLimit": 5,
+            "stock": 5
         },
     "Requirements": [
         {

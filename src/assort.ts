@@ -29,9 +29,9 @@ export class AssortInjector
                 "parentId": "hideout",
                 "slotId": "hideout",
                 "upd": {
-                    "BuyRestrictionMax": 5,
+                    "BuyRestrictionMax": Traders.buyLimit,
                     "BuyRestrictionCurrent": 0,
-                    "StackObjectsCount": 5,
+                    "StackObjectsCount": Traders.stock,
                     "RepairKit": {
                         "Resource": MaxRepairResource
                     }
