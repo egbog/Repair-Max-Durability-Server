@@ -17,4 +17,4 @@ All parameters (price, trader, loyalty level etc.) are configurable in the /egbo
 None so far
 
 ## Compatibility 
-Compatible with SPT-AKI 3.8.0
+Compatible with SPT-AKI 3.8.0+
