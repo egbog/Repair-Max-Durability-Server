@@ -1,11 +1,11 @@
-import { DatabaseServer} from "@spt-aki/servers/DatabaseServer";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { IHideoutProduction, Requirement } from "@spt-aki/models/eft/hideout/IHideoutProduction";
+import { DatabaseService} from "@spt/services/DatabaseService";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { IHideoutProduction, Requirement } from "@spt/models/eft/hideout/IHideoutProduction";
 import { CraftTime, Requirements } from "../config/config.json";
 
 export class CraftInjector
 {
-    constructor(private logger: ILogger, private db: DatabaseServer) {}
+    constructor(private logger: ILogger, private db: DatabaseService) {}
 
     private createCraft(itemId: string, requirements: Requirement[], productionTime: number): IHideoutProduction
     {

@@ -1,10 +1,10 @@
 {
 	"name": "RepairMaxDurability",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"main": "src/mod.js",
 	"license": "MIT",
 	"author": "egbog",
-	"akiVersion": "~3.8",
+	"sptVersion": "~3.9",
 	"loadBefore": [],
 	"loadAfter": [],
 	"incompatibilities": [],

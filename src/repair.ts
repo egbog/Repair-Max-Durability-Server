@@ -1,6 +1,6 @@
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { MaxRepairResource } from "../config/config.json";
 
 export class Repair

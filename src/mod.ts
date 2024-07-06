@@ -1,15 +1,15 @@
 import { DependencyContainer } from "tsyringe";
-import { DatabaseServer} from "@spt-aki/servers/DatabaseServer";
-import { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod";
-import { IPostAkiLoadMod } from "@spt-aki/models/external/IPostAkiLoadMod";
-import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
-import { CustomItemService } from "@spt-aki/services/mod/CustomItemService";
-import { NewItemFromCloneDetails } from "@spt-aki/models/spt/mod/NewItemDetails";
-import { DynamicRouterModService } from "@spt-aki/services/mod/dynamicRouter/DynamicRouterModService"
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { PreAkiModLoader } from "@spt-aki/loaders/PreAkiModLoader";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
+import { DatabaseService} from "@spt/services/DatabaseService";
+import { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod";
+import { IPostSptLoadMod } from "@spt/models/external/IPostSptLoadMod";
+import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
+import { CustomItemService } from "@spt/services/mod/CustomItemService";
+import { NewItemFromCloneDetails } from "@spt/models/spt/mod/NewItemDetails";
+import { DynamicRouterModService } from "@spt/services/mod/dynamicRouter/DynamicRouterModService"
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 
 import { Repair } from "./repair";
 import { AssortInjector } from "./assort";
@@ -17,16 +17,16 @@ import { CraftInjector } from "./craft";
 import { Price, MaxRepairResource, Traders } from "../config/config.json";
 
 import * as path from "path";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
+import { HashUtil } from "@spt/utils/HashUtil";
 
-class Mod implements IPreAkiLoadMod, IPostDBLoadMod
+class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
 {
     private path: { resolve: (arg0: string) => any; };
-    private modLoader: PreAkiModLoader;
+    private modLoader: PreSptModLoader;
 
-    public preAkiLoad(container: DependencyContainer): void 
+    public preSptLoad(container: DependencyContainer): void 
     {
-        const preAkiModLoader = container.resolve<PreAkiModLoader>("PreAkiModLoader");
+        const preSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
         const router = container.resolve<DynamicRouterModService>("DynamicRouterModService");
         this.path = require("path");
 
@@ -35,7 +35,7 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
             [
                 {
                     url: "/MaxDura/CheckDragged",
-                    action: (url, info, sessionId, output) => {
+                    action: async (url, info, sessionId, output) => {
                         const logger = container.resolve<ILogger>("WinstonLogger");
                         const jsonUtil = container.resolve<JsonUtil>("JsonUtil");
                         const profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
@@ -55,7 +55,7 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
     {
         const CustomItem = container.resolve<CustomItemService>("CustomItemService");
         const logger = container.resolve<ILogger>("WinstonLogger");
-        const db = container.resolve<DatabaseServer>("DatabaseServer");
+        const db = container.resolve<DatabaseService>("DatabaseService");
         const tables = db.getTables();
         const hashUtil = container.resolve<HashUtil>("HashUtil");
         
@@ -103,9 +103,9 @@ class Mod implements IPreAkiLoadMod, IPostDBLoadMod
             logger.debug(`[MaxDura]: (${injectedCount}) crafts injected into database`);
     }
 
-    public postAkiLoad(container: DependencyContainer): void 
+    public postSptLoad(container: DependencyContainer): void 
     {
-        this.modLoader = container.resolve<PreAkiModLoader>("PreAkiModLoader");
+        this.modLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
     }
 }
 
