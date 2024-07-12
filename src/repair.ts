@@ -51,8 +51,7 @@ export class Repair
         // and delete our item from the profile for us
 
         // organize our items into a parent "Items" so we can use JToken.First and JToken.Next client-side
-        let out = { "Items" : [itemToRepair, repairKit] };
 
-        return out;
+        return { "Items" : [itemToRepair, repairKit] };
     }
 }
