@@ -19,7 +19,7 @@ export class Repair
 
         const itemDurability = 100;
         const itemMaxDurability = itemDurability;
-        const itemCurrentMaxDurability = this.jsonUtil.clone(itemToRepair.upd.Repairable.MaxDurability);
+        const itemCurrentMaxDurability = itemDurability;
 
         // set new values
         const amountToRepair = itemMaxDurability - itemCurrentMaxDurability;
