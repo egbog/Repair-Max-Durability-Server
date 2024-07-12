@@ -2,12 +2,14 @@ import { JsonUtil } from "@spt/utils/JsonUtil";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { MaxRepairResource } from "../config/config.json";
+import { Item } from "@spt/models/eft/common/tables/IItem";
 
 export class Repair
 {
-    constructor(private logger: ILogger, private jsonUtil: JsonUtil, private pmcData: IPmcData, private info: any){}
+    constructor(private logger: ILogger, private jsonUtil: JsonUtil, private pmcData: IPmcData, private info: any)
+    {}
 
-    public ambeeb()
+    public ambeeb() : { "Items" : Item[] }
     {
         // get values from our client
         const id = this.info.itemId;
@@ -33,7 +35,8 @@ export class Repair
         // check if repair kit was crafted
         // for some reason crafted kits don't contain a "RepairKit" component in upd
         // so just workaround add it ourselves
-        if (repairKit.upd.RepairKit == null) {
+        if (repairKit.upd.RepairKit == null) 
+        {
             repairKit.upd.RepairKit = {
                 "Resource": MaxRepairResource
             };

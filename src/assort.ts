@@ -4,7 +4,8 @@ import { MaxRepairResource, Traders } from "../config/config.json";
 
 export class AssortInjector
 {
-    constructor(private logger: ILogger, private tables: IDatabaseTables) {}
+    constructor(private logger: ILogger, private tables: IDatabaseTables) 
+    {}
 
     private id = {
         // our item id
@@ -26,7 +27,7 @@ export class AssortInjector
     public addToAssort(traderInfo: typeof Traders)
     {
         let count = 0;
-        let addedTraders = [];
+        const addedTraders = [];
 
         const item = this.tables.templates.handbook.Items.find(i => i.Id === this.id.itemId);
         const price = item.Price;
@@ -76,8 +77,8 @@ export class AssortInjector
         }
 
         return {
-            "count": count,
-            "traders": addedTraders
+            "count" : count,
+            "traders" : addedTraders
         };
     }
 }

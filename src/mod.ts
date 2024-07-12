@@ -16,8 +16,8 @@ import { AssortInjector } from "./assort";
 import { CraftInjector } from "./craft";
 import { Price, MaxRepairResource, Traders } from "../config/config.json";
 
-import * as path from "path";
-import { HashUtil } from "@spt/utils/HashUtil";
+//import * as path from "path";
+//import { HashUtil } from "@spt/utils/HashUtil";
 
 class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
 {
@@ -26,7 +26,7 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
 
     public preSptLoad(container: DependencyContainer): void 
     {
-        const preSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
+        //const preSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
         const router = container.resolve<DynamicRouterModService>("DynamicRouterModService");
         this.path = require("path");
 
@@ -35,7 +35,8 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
             [
                 {
                     url: "/MaxDura/CheckDragged",
-                    action: async (url, info, sessionId, output) => {
+                    action: async (url, info, sessionId) => 
+                    {
                         const logger = container.resolve<ILogger>("WinstonLogger");
                         const jsonUtil = container.resolve<JsonUtil>("JsonUtil");
                         const profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
@@ -53,13 +54,13 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
 
     public postDBLoad(container: DependencyContainer): void 
     {
-        const CustomItem = container.resolve<CustomItemService>("CustomItemService");
+        const customItem = container.resolve<CustomItemService>("CustomItemService");
         const logger = container.resolve<ILogger>("WinstonLogger");
         const db = container.resolve<DatabaseService>("DatabaseService");
         const tables = db.getTables();
-        const hashUtil = container.resolve<HashUtil>("HashUtil");
+        //const hashUtil = container.resolve<HashUtil>("HashUtil");
         
-        const MaxRepairKit: NewItemFromCloneDetails = {
+        const maxRepairKit: NewItemFromCloneDetails = {
             itemTplToClone: "5910968f86f77425cf569c32", //5910968f86f77425cf569c32 weaprepairkit
             overrideProperties: {
                 "Name": "Spare firearm parts",
@@ -87,7 +88,7 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
             }
         }
 
-        CustomItem.createItemFromClone(MaxRepairKit);
+        customItem.createItemFromClone(maxRepairKit);
 
         // trader assort
         const assortInstance = new AssortInjector(logger, tables);

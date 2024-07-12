@@ -5,7 +5,8 @@ import { CraftTime, Requirements } from "../config/config.json";
 
 export class CraftInjector
 {
-    constructor(private logger: ILogger, private db: DatabaseService) {}
+    constructor(private logger: ILogger, private db: DatabaseService) 
+    {}
 
     private createCraft(itemId: string, requirements: Requirement[], productionTime: number): IHideoutProduction
     {
@@ -20,16 +21,16 @@ export class CraftInjector
             productionLimitCount: 1,
             isEncoded: false,
             locked: false,
-            needFuelForAllProductionTime: false,
+            needFuelForAllProductionTime: false
         };
     }
 
-    public injectCraft()
+    public injectCraft() : number
     {
         let count = 0;
         const tables = this.db.getTables();
 
-        let reqs: Requirement[] = [];
+        const reqs: Requirement[] = [];
         for (let a of Requirements)
             reqs.push(a);
 
