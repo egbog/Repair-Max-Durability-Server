@@ -1,15 +1,15 @@
-import { DatabaseService} from "@spt/services/DatabaseService";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IHideoutProduction, Requirement } from "@spt/models/eft/hideout/IHideoutProduction";
 import { CraftTime, Requirements } from "../config/config.json";
 
-export class CraftInjector
-{
-    constructor(private logger: ILogger, private db: DatabaseService) 
-    {}
+export class CraftInjector {
+    constructor(
+        private logger: ILogger,
+        private db: DatabaseService,
+    ) {}
 
-    private createCraft(itemId: string, requirements: Requirement[], productionTime: number): IHideoutProduction
-    {
+    private createCraft(itemId: string, requirements: Requirement[], productionTime: number): IHideoutProduction {
         return {
             _id: `${itemId}_craft`,
             areaType: 10, //workbench
@@ -21,18 +21,16 @@ export class CraftInjector
             productionLimitCount: 1,
             isEncoded: false,
             locked: false,
-            needFuelForAllProductionTime: false
+            needFuelForAllProductionTime: false,
         };
     }
 
-    public injectCraft() : number
-    {
+    public injectCraft(): number {
         let count = 0;
         const tables = this.db.getTables();
 
         const reqs: Requirement[] = [];
-        for (let a of Requirements)
-            reqs.push(a);
+        for (let a of Requirements) reqs.push(a);
 
         const itemId = "86afd148ac929e6eddc5e370";
         const productionItem = this.createCraft(itemId, reqs, CraftTime);

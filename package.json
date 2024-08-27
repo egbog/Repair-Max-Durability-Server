@@ -14,7 +14,11 @@
 		"setup": "npm i",
 		"build": "node ./build.mjs",
 		"buildinfo": "node ./build.mjs --verbose",
-		"release-build": "release-package.bat"
+		"release-build": "release-package.bat",
+		"lint": "npx @biomejs/biome lint ./",
+        "lint:fix": "npx @biomejs/biome lint --write ./",
+        "style": "npx @biomejs/biome format ./",
+        "style:fix": "npx @biomejs/biome format --write ./"
 	},
 	"devDependencies": {
 		"@types/node": "20.11",
