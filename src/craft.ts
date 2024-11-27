@@ -5,7 +5,6 @@ import { CraftTime, Requirements } from "../config/config.json";
 
 export class CraftInjector {
     constructor(
-        private logger: ILogger,
         private db: DatabaseService,
     ) {}
 

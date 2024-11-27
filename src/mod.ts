@@ -87,13 +87,13 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod {
         customItem.createItemFromClone(maxRepairKit);
 
         // trader assort
-        const assortInstance = new AssortInjector(logger, tables);
+        const assortInstance = new AssortInjector(tables);
         const assortResult = assortInstance.addToAssort(Traders);
         if (assortResult.count > 0)
             for (let i of assortResult.traders) logger.debug(`[MaxDura]: Added trade to ${i.name}`);
 
         // hideout crafts
-        const craftInstance = new CraftInjector(logger, db);
+        const craftInstance = new CraftInjector(db);
         const injectedCount = craftInstance.injectCraft();
         if (injectedCount > 0) logger.debug(`[MaxDura]: (${injectedCount}) crafts injected into database`);
     }

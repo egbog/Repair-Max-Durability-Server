@@ -4,7 +4,6 @@ import { MaxRepairResource, Traders } from "../config/config.json";
 
 export class AssortInjector {
     constructor(
-        private logger: ILogger,
         private tables: IDatabaseTables,
     ) {}
 
