@@ -2,7 +2,7 @@ import { JsonUtil } from "@spt/utils/JsonUtil";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { MaxRepairResource } from "../config/config.json";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 
 export class Repair {
     constructor(
@@ -12,7 +12,7 @@ export class Repair {
         private info,
     ) {}
 
-    public ambeeb(): { "Items" : Item[] } {
+    public ambeeb(): { "Items" : IItem[] } {
         // get values from our client
         const id = this.info.itemId;
         const kitId = this.info.repairKitId;
