@@ -16,17 +16,9 @@ import { AssortInjector } from "./assort";
 import { CraftInjector } from "./craft";
 import { Price, MaxRepairResource, Traders } from "../config/config.json";
 
-//import * as path from "path";
-//import { HashUtil } from "@spt/utils/HashUtil";
-
-class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod {
-    private path: { resolve: (arg0: string) => any; };
-    private modLoader: PreSptModLoader;
-
+class Mod implements IPreSptLoadMod, IPostDBLoadMod/*, IPostSptLoadMod*/ {
     public preSptLoad(container: DependencyContainer): void {
-        //const preSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
         const router = container.resolve<DynamicRouterModService>("DynamicRouterModService");
-        this.path = require("path");
 
         router.registerDynamicRouter(
             "checkDragged",
@@ -54,7 +46,6 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod {
         const logger = container.resolve<ILogger>("WinstonLogger");
         const db = container.resolve<DatabaseService>("DatabaseService");
         const tables = db.getTables();
-        //const hashUtil = container.resolve<HashUtil>("HashUtil");
 
         const maxRepairKit: NewItemFromCloneDetails = {
             itemTplToClone: "5910968f86f77425cf569c32", //5910968f86f77425cf569c32 weaprepairkit
@@ -96,10 +87,6 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod {
         const craftInstance = new CraftInjector(db);
         const injectedCount = craftInstance.injectCraft();
         if (injectedCount > 0) logger.debug(`[MaxDura]: (${injectedCount}) crafts injected into database`);
-    }
-
-    public postSptLoad(container: DependencyContainer): void {
-        this.modLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
     }
 }
 
