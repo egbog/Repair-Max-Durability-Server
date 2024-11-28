@@ -35,11 +35,8 @@ export class Repair {
         // check if repair kit was crafted
         // for some reason crafted kits don't contain a "RepairKit" component in upd
         // so just workaround add it ourselves
-        if (repairKit.upd.RepairKit == null) {
-            repairKit.upd.RepairKit = {
-                "Resource": MaxRepairResource,
-            };
-        }
+        if (!repairKit.upd.RepairKit)
+            repairKit.upd.RepairKit = { "Resource": MaxRepairResource, };
 
         repairKit.upd.RepairKit.Resource--;
 
