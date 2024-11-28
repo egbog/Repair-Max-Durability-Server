@@ -6,8 +6,6 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 
 export class Repair {
     constructor(
-        private logger: ILogger,
-        private jsonUtil: JsonUtil,
         private pmcData: IPmcData,
         private info,
     ) {}

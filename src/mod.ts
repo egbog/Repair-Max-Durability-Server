@@ -31,7 +31,7 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod/*, IPostSptLoadMod*/ {
                         const profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
                         const pmcData = profileHelper.getPmcProfile(sessionId);
 
-                        const repairInstance = new Repair(logger, jsonUtil, pmcData, info);
+                        const repairInstance = new Repair(pmcData, info);
 
                         return jsonUtil.serialize(repairInstance.ambeeb());
                     },
