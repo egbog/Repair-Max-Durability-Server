@@ -26,7 +26,6 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod/*, IPostSptLoadMod*/ {
                 {
                     url: "/MaxDura/CheckDragged",
                     action: async (url, info, sessionId) => {
-                        const logger = container.resolve<ILogger>("WinstonLogger");
                         const jsonUtil = container.resolve<JsonUtil>("JsonUtil");
                         const profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
                         const pmcData = profileHelper.getPmcProfile(sessionId);
