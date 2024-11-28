@@ -89,4 +89,4 @@ class Mod implements IPreSptLoadMod, IPostDBLoadMod/*, IPostSptLoadMod*/ {
     }
 }
 
-module.exports = { mod: new Mod() };
+export const mod = new Mod();
