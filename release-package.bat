@@ -1,4 +1,4 @@
-SET Dir="C:\Users\Ryan\Documents\GitHub\Server\project\user\mods\Repair-Max-Durability-Server\dist"
+SET Dir="C:\Users\Ryan\Documents\GitHub\SPT GIT\server\project\user\mods\Repair-Max-Durability-Server\dist"
 
 CD /D C:\Program Files\7-Zip
 
