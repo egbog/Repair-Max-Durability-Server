@@ -37,7 +37,7 @@ public class RepairMaxDurabilityPatch : ModulePatch {
 
         // make sure the item being dragged is the repair kit
         // only repair Weapon types
-        if (dragItemContext.Item.TemplateId                   != "86afd148ac929e6eddc5e370" ||
+        if (dragItemContext.Item.TemplateId                   != Plugin.KitId ||
             ItemViewFactory.GetItemType(targetItem.GetType()) != EItemType.Weapon) {
             return true;
         }

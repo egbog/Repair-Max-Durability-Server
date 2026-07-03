@@ -14,7 +14,7 @@ public class ShowRepairWindowPatch : ModulePatch {
     [PatchPostfix]
     public static void Postfix(ref IEnumerable<GClass904> __result) {
         // this was way more complicated than it needed to be...
-        __result = __result.Where(x => x.RepairKitsTemplateClass._id != "86afd148ac929e6eddc5e370").ToList();
+        __result = __result.Where(x => x.RepairKitsTemplateClass._id != Plugin.KitId).ToList();
     }
 }
 
@@ -25,6 +25,6 @@ public class RepairerParametersPanelRefreshPatch : ModulePatch {
 
     [PatchPrefix]
     public static bool Prefix(RepairKitsItemClass repairKit) {
-        return repairKit.RepairKitsTemplateClass._id != "86afd148ac929e6eddc5e370";
+        return repairKit.RepairKitsTemplateClass._id != Plugin.KitId;
     }
 }
