@@ -6,11 +6,13 @@
  * */
 
 using System.Collections;
+using System.Runtime.CompilerServices;
 using _RepairMaxDurability.Patches;
 using BepInEx;
 using BepInEx.Logging;
+using Comfort.Common;
+using EFT;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace _RepairMaxDurability;
 
@@ -32,11 +34,10 @@ public class Plugin : BaseUnityPlugin {
     private IEnumerator CheckMenuIsLoadedRoutine() {
         WaitForSecondsRealtime wait = new(4f);
         while (true) {
-            // Scene is a value type so we have to get the scene every time...
-            Scene s = SceneManager.GetActiveScene();
-            if (s.IsValid() && s.name == "CommonUIScene") {
-                // small delay to allow static constructors to run
-                yield return new WaitForSecondsRealtime(20f);
+            BackendConfigSettingsClass cfg = Singleton<BackendConfigSettingsClass>.Instance;
+            if (cfg is { SkillsSettings: not null, RepairSettings: not null }) {
+                // run cctor NOW, singleton is ready
+                RuntimeHelpers.RunClassConstructor(typeof(RepairControllerClass).TypeHandle);
                 new ShowRepairWindowPatch().Enable();
                 yield break;
             }
