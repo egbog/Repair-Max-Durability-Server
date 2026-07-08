@@ -1,4 +1,5 @@
 using _RepairMaxDurability.Injectors;
+using _RepairMaxDurability.ItemEventRouters;
 using _RepairMaxDurability.Services;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
@@ -7,39 +8,46 @@ using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Mod;
 using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Services.Mod;
+using SPTarkov.Server.Core.Utils;
+using SPTarkov.Server.Core.Utils.Json.Converters;
 using LogLevel = SPTarkov.Server.Core.Models.Spt.Logging.LogLevel;
 
 namespace _RepairMaxDurability;
 
 public record ModMetadata : AbstractModMetadata {
-    public override string                                          ModGuid           { get; init; } = "com.egbog.repairmaxdurability";
-    public override string                                          Name              { get; init; } = "RepairMaxDurability";
-    public override string                                          Author            { get; init; } = "egbog";
-    public override List<string>?                                   Contributors      { get; init; }
-    public override SemanticVersioning.Version                      Version           { get; init; } = new("2.1.0");
-    public override SemanticVersioning.Range                        SptVersion        { get; init; } = new("~4.0.0");
-    public override List<string>?                                   Incompatibilities { get; init; }
-    public override Dictionary<string, SemanticVersioning.Range>?   ModDependencies   { get; init; }
-    public override string?                                         Url               { get; init; }  = "https://github.com/egbog/Repair-Max-Durability";
-    public override bool?                                           IsBundleMod       { get; init; }  = false;
-    public override string                                          License           { get; init; } = "MIT";
+    public override string ModGuid { get; init; } = "com.egbog.repairmaxdurability";
+    public override string Name { get; init; } = "RepairMaxDurability";
+    public override string Author { get; init; } = "egbog";
+    public override List<string>? Contributors { get; init; }
+    public override SemanticVersioning.Version Version { get; init; } = new("2.1.0");
+    public override SemanticVersioning.Range SptVersion { get; init; } = new("~4.0.0");
+    public override List<string>? Incompatibilities { get; init; }
+    public override Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
+    public override string? Url { get; init; } = "https://github.com/egbog/Repair-Max-Durability";
+    public override bool? IsBundleMod { get; init; } = false;
+    public override string License { get; init; } = "MIT";
 }
 
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 1)]
 public class RepairMaxDurability(
     ISptLogger<RepairMaxDurability> logger,
+    JsonUtil                        jsonUtil,
     CustomItemService               customItem,
     GetConfig                       config,
     AssortService                   assortService,
     CraftService                    craftService) : IOnLoad {
     public static          bool        Debug;
     public static readonly ModMetadata Mod = new();
+
     public async Task OnLoad() {
         Debug = config.Debug || logger.IsLogEnabled(LogLevel.Debug);
 
         MongoId itemId   = "86afd148ac929e6eddc5e370"; // repair kit id
         MongoId assortId = "db6e9955c9672e4fdd7e38ad"; // pregenerated mongoid
         MongoId craftId  = "6747a15d68e0b74658000001"; // pregenerated mongoid
+
+        BaseInteractionRequestDataConverter.RegisterModDataHandler("MaxDuraRepair",
+                                                                   jsonUtil.Deserialize<RepairDataRequest>);
 
         var maxRepairKit = new NewItemFromCloneDetails {
             ItemTplToClone       = ItemTpl.REPAIRKITS_WEAPON_REPAIR_KIT, //5910968f86f77425cf569c32 weaprepairkit
@@ -60,9 +68,7 @@ public class RepairMaxDurability(
                 }
             },
             OverrideProperties = new TemplateItemProperties {
-                Weight            = 1.4,
-                MaxRepairResource = config.MaxRepairResource,
-                Width             = 2
+                Weight = 1.4, MaxRepairResource = config.MaxRepairResource, Width = 2
             }
         };
 

@@ -1,4 +1,4 @@
-using _RepairMaxDurability.Static_Routers;
+using _RepairMaxDurability.ItemEventRouters;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Common;
